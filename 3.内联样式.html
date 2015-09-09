@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ex15:EzLampComp</title>
+	<script type="text/javascript" src="js/react.min.js" ></script>
+	<script type="text/javascript" src="js/JSXTransformer.js" ></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
+	<style>
+		.ez-lamp{
+			display : inline-block;
+			margin : 5px;
+			width : 30px;
+			height : 30px;
+		}
+	</style>
+</head>
+<body>
+	<div id="content"></div>
+	<script type = "text/jsx">
+		//定义React组件
+		var EzLampComp = React.createClass({
+			render : function(){
+				//取得属性值
+				var color = this.props.color,
+					onoff = this.props.onoff;
+				//亮光颜色
+				var lights = {
+					"off":"#888",
+					"on":"#fff"
+				};
+				//透明度
+				var opacity ={
+					"off":0.5,
+					"on":1.0
+				};
+				//根据属性设置附加的样式
+				var style = {
+					borderRadius : "50%",  //对应样式：border-radius
+					opacity : opacity[this.props.onoff], 
+					background : "-webkit-radial-gradient(30% 30%," + lights[onoff] + " 5%," + color +" 95%)"
+				};
+				//返回React元素
+				return <span className="ez-lamp" style={style}></span>;  //JSX
+			}
+		});
+		//渲染React元素
+		React.render(
+			//JSX-->
+			<div>
+				<EzLampComp color="green" onoff="off"/> 
+				<EzLampComp color="green" onoff="on"/> 
+				<EzLampComp color="red" onoff="off"/> 
+				<EzLampComp color="red" onoff="on"/> 
+				<EzLampComp color="blue" onoff="off"/> 
+				<EzLampComp color="blue" onoff="on"/> 
+			</div>
+			//<--JSX
+			,document.querySelector("#content"));
+	</script>
+</body>
+</html>
+<!--
+	在React元素中声明样式，需要给出一个JSON对象，其字段对应样式名称，比如要渲染出 上面的HTML片段，需要这样：
+
+var myStyle = {
+    width:"200px",
+    height:"200px"
+};
+//JSX
+var e = <div style="{myStyle}"></div>;
+//JavaScript
+var e = React.createElement(
+    "div",{
+        style : myStyle
+    });
+//render
+React.render(e,...);    
+注意1 - 对应样式名称的字段，需要使用驼峰式命名
+比如：border-radius样式需要使用borderRadius来访问，而background-image 样式需要使用backgroundImage来访问。
+
+注意2 - 样式名称中的供应商前缀，除ms外都需要大写首字母
+对于供应商前缀（-webkit, -moz, -o, -ms），除了ms，其他都需要将首字母大写。 比如：-webkit-transition应当通过WebkitTransition来访问，然而-ms-transition 则需要通过msTransition来访问。
+-->

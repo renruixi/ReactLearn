@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>EzSwitchComp</title>
+	<script type="text/javascript" src="js/react.min.js" ></script>
+	<script type="text/javascript" src="js/JSXTransformer.js" ></script>
+</head>
+<body>
+	<div id="content"></div>
+	<script type = "text/jsx">
+		//组件定义
+		var EzSwitchComp = React.createClass({
+			//设置初始状态
+			getInitialState : function(){
+				return {on : false};
+			},
+            initNum:1,
+			//处理点击事件，切换状态
+			onClick : function(){
+            
+           	    if(this.initNum<5){
+                	this.initNum++;
+                }else{
+                	this.state.on=!this.state.on;
+                	this.onClick=null;
+                	alert("灯坏了！");
+                }
+				//读取并重设状态，这将触发重新渲染
+				this.setState({on : !this.state.on});
+                
+			},
+			render : function(){
+				//根据状态设置样式
+				img = this.state.on ? "img/switch-on.png" : img = "img/switch-off.png";
+				
+				//返回元素
+				return <img src = {img} style={{width:"500x"}} onClick={this.onClick}/>;
+			}
+		});
+		//渲染
+		React.render(
+			<EzSwitchComp/>,
+			document.querySelector("#content"));
+		
+		
+		
+	</script>
+</body>
+</html>

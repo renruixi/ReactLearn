@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>容器组件</title>
+	<script type="text/javascript" src="js/react.min.js" ></script>
+	<script type="text/javascript" src="js/JSXTransformer.js" ></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
+	<!--组件样式-->
+	<style>
+		.ez-panel{
+			background:#f0f0f0;
+			min-height:280px;
+			padding:5px;
+		}
+		.ez-panel .header{
+			background:#8187c3;
+			color:#fff;
+			padding:5px;
+			border-radius:5px;
+			font-weight:bold;
+		}
+		.ez-panel .content{
+			padding:5px;
+		}
+		.hz-indent{
+			text-indent:2em;
+		}
+	</style>
+</head>
+<body>
+	<div id="content"></div>
+	<script type = "text/jsx">
+		var EzPanelComp = React.createClass({
+			render : function(){
+				return 	<div className="ez-panel">
+							<div className="header">{this.props.title}</div>
+							<div className="content">
+								{this.props.children}
+							</div>
+						</div>;
+			}
+		});
+		React.render(
+			<EzPanelComp title="水浒传 - 第三回 ： 史大郎夜走华阴县 鲁提辖拳打镇关西">
+				<p>史进在路，免不得饥餐渴饮，夜住晓行。独自一个行了半月之上，来到渭州。这里也有经略府。“莫非师父王教头在这里？”史进便入城来看时，依然有六街三市。只见一个小小茶坊，正在路口。史进便入茶坊里来，拣一付座位坐了。茶博士问道：“客官吃甚茶？”史进道：“吃个泡茶。”茶博士点个泡茶，放在史进面前。史进问道：“这里经略府在何处？”茶博士道：“只在前面便是。”史进道：“借问经略府内有个东京来的教头王进么？”茶博士道：“这府里教头极多，有三四个姓王的，不知那个是王进？”道犹未了，只见一个大汉，大踏步入来，走进茶坊里。史进看他时，是个军官模样。怎生结束？但见：</p>
+                <p>头裹芝麻罗万字顶头巾，脑后两个太原府纽丝金环，上穿一领鹦哥绿丝战袍，腰系一条文武双股鸦青绦，足穿一双鹰爪皮四缝乾黄靴。生的面圆耳大，鼻直口方，腮边一部络腮胡须。身长八尺，腰阔十围。</p>
+			</EzPanelComp>,
+			document.querySelector("#content"));
+	</script>
+</body>
+</html>
+<!--
+	React元素也可以包含其他的子元素，这意味着响应的React组件是一个 容器组件。比如：
+
+//JSX
+<ezpanel title="title">
+    <p>this is demo content</p>
+</ezpanel>
+上例中的EzPanel声明了一个面板组件，而面板的内容在定义组件时是不可知的， 这些内容需要被加入到EzPanel渲染后的DOM元素中。
+
+在React中，使用this.props.children就可以访问React子元素，这样我们 就可以轻松地将未知的React子元素包含到容器中：
+
+var EzPanel = React.createClass({
+    render : function(){
+        return     <div class="ez-panel">
+                    {this.props.children}
+                </div>;
+    }
+});
+-->

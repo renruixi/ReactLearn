@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ex15:EzLampComp</title>
+	<script type="text/javascript" src="js/react.min.js" ></script>
+	<script type="text/javascript" src="js/JSXTransformer.js" ></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
+	<!--组件样式-->
+	<style>
+		.ez-lamp{
+			display : inline-block;
+			margin : 5px;
+			width : 30px;
+			height : 30px;
+			border-radius : 50%;
+		}
+		.ez-lamp.on{
+			opacity : 1;
+			background : -webkit-radial-gradient(30% 30%,white 5%,red 95%);
+		}
+		.ez-lamp.off{
+			opacity : 0.5;
+			background : -webkit-radial-gradient(30% 30%,#888 5%,red 95%);
+		}
+	</style>
+</head>
+<body>
+	<div id="content"></div>
+	<script type = "text/jsx">
+		//定义React组件
+		var EzLampComp = React.createClass({
+			render : function(){
+				//取得属性值
+				var onoff = this.props.onoff;
+
+				//返回React元素
+				if(onoff == "on")
+					return <span className = "ez-lamp on"></span>;  //JSX
+				else
+					return <span className = "ez-lamp off"></span>;  //JSX					
+			}
+		});
+		//渲染React元素
+		React.render(
+			<EzLampComp onoff="on"/> , //<--JSX
+			document.querySelector("#content"));
+	</script>
+</body>
+</html>
+<!--
+	组件应该提供一些属性供开发者在不同的场景下可以对组件实例元素的行为 外观进行调整，这样可以提高组件的利用效率。
+
+在React中，使用props字段访问实例元素的属性。
+
+例如，在下面的JSX片段中，EzLampComp组件的实例元素有一个属性onoff：
+
+React.render(
+    <ezlampcomp onoff="off"></ezlampcomp> ,
+    document.querySelector("#content"));
+那么在EzLampComp组件的实现中，我们可以通过props字段访问这个属性， 并根据属性值设置其样式类。
+
+在JSX中，我们也可以将一个JavaScript表达式赋给React元素的属性，这时需要 使用一对大括号来代替引号：
+
+var myOnoff = "on";
+React.render(
+    <ezlampcomp onoff="{myOnoff}"></ezlampcomp>,
+    document.querySelector("#content"));
+如果你觉得不好理解，那么我们把上面的JSX代码转换成JavaScript：
+
+var myOnoff = "on";
+React.render(
+    React.createElement(
+        EzLampComp,
+        {
+            onoff : myOnoff
+        }),
+    document.querySelector("#content"));
+-->

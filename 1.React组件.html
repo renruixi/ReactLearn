@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>LED Display</title>
+	<script type="text/javascript" src="js/react.min.js" ></script>
+	<!--组件样式-->
+	<style>
+		
+		.ez-led{
+			font-size : 40px;
+			background : #70d355;
+			width: 300px;
+			height:60px;
+			line-height : 60px;
+			text-align : right;
+			padding : 10px;
+			letter-spacing:5px;
+		}
+	</style>
+</head>
+<body>
+	<!--定义容器-->
+	<div id="content"></div>
+	<script>
+	//定义React组件
+	var EzLedComp = React.createClass({
+		//每个React组件都应该事先render()方法
+		render : function(){
+			var e = React.createElement(
+				"div",
+				{className : "ez-led"},
+				"Hello, React!"
+			);
+			//render()方法应该返回一个React元素
+			return e;
+		}
+	});
+	//创建React元素
+	var el = React.createElement(EzLedComp);
+	//渲染
+	React.render(el,document.querySelector("#content"));
+	</script>
+</body>
+</html>
+<!--
+	在React中定义一个组件也是相当的容易，组件就是一个 实现预定义接口的JavaScript类：
+
+React.createClass(meta)
+参数meta是一个实现预定义接口的JavaScript对象，用来 对React组件原型进行扩展。
+
+在meta中，至少需要实现一个render()方法，而这个方法， 必须而且只能返回一个有效的React元素。
+
+这意味着，如果你的组件是由多个元素构成的，那么你必须在外边包一个顶层 元素，然后返回这个顶层元素。比如我们创建一个布局组件：
+n
+render:function(){
+    return React.createElement(
+        "div",null,
+        React.createElement("div",null,"header"),
+        React.createElement("div",null,"content"),
+        React.createElement("div",null,"footer")
+    );
+}
+注意 ：你的React组件名称的首字母应当大写， 关于大小写的差异你会在后面发现。
+
+在示例代码中，我们实现了一个液晶显示组件EzLedComp（为了更逼真一些， 定义了简单的样式，别忘了翻看一下），你应该会注意到div元素的样式类是用 className而不是class声明的，这是因为class 是JavaScript的保留字，渲染后，真实的DOM还会是：
+
+<div class="ez-led">Hello, React!</div>
+组件定义以后，和标准HTML标签一样，可以使用createElement()方法 创建元素，只是这时，第一个参数是我们定义的组件类，而不是标签名字符串：
+
+React.createElement(EzLedComp);
+-->

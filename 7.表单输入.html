@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>EzLoginComp</title>
+	<script type="text/javascript" src="js/react.min.js" ></script>
+	<script type="text/javascript" src="js/JSXTransformer.js" ></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
+	<style>
+		.ez-login{
+	background : #f1f2ff;
+	padding: 10px;
+}
+.ez-login .row.title{
+	margin-bottom: 10px;
+	background:#ff9244;
+	color: white;
+	border-radius:5px;
+}
+.ez-login .row h1{
+	padding: 0px;
+	font-size: 16px;	
+	margin:5px;
+	text-align:center;
+	flex:1 0 auto;
+}
+.ez-login .row{
+	display:flex;
+	flex-flow:row nowrap;
+	padding:5px 0px;
+	height: 30px;
+}
+.ez-login .row label{
+	display : inline-block;
+	width: 80px;
+}
+.ez-login .row span,
+.ez-login .row input{
+	flex:1 0 auto;
+}
+.ez-login .row input[type="checkbox"]{
+	margin-left:80px;
+	flex:none;
+}
+.ez-login button{
+	display: block;
+	width: 100%;
+	height:30px;
+	margin:5px 0px;
+}
+
+
+	</style>
+</head>
+<body>
+	<div id="content"></div>
+	<script type="text/jsx">
+		//组件定义
+		var EzLoginComp = React.createClass({
+			auth : function(event){
+				var account = React.findDOMNode(this.refs.account).value,
+					pass = React.findDOMNode(this.refs.password).value;
+				alert([account,pass]);	
+					
+			},
+			render : function(){
+
+				return 	<div className = "ez-login">
+							<div className="row title">
+								<h1>登录</h1>
+							</div>
+							<div className="row sys">
+								<label>系统</label>
+								<select defaultValue='c'>
+									<option value='a'>OA</option>
+									<option value='b'>财务</option>
+									<option value='c'>人力资源</option>
+								</select>
+							</div>
+							<div className="row account">
+								<label>用户</label>
+								<input type="text" defaultValue="Jason" ref="account"/>
+							</div>
+							<div className="row pass">
+								<label>密码</label>
+								<input type="text" ref="password"/>
+							</div>
+							<div className="row remember">
+								<input type="checkbox" defaultChecked/>
+								<span>记住密码</span>
+							</div>
+							<div className="row button">
+								<button onClick={this.auth}>登录</button>
+							</div>
+						</div>;
+			}
+		});
+		//渲染
+		React.render(<EzLoginComp/>,document.querySelector("#content"));
+	</script>
+</body>
+</html>
+
+
+<!--
+	在React中，表单输入元素如 input, textarea, option等，和其他标准的HTML元素 相比需要特殊的注意：
+
+文本输入框
+不要使用value属性设置文本输入框元素的初值，应当使用defaultValue：
+
+//JSX
+<input type="text" defaultvalue="demo">  
+复选按钮
+不要使用checked属性设置复选按钮的初始选中状态，应当使用defaultChecked：
+
+//JSX
+<input type="checkbox" defaultchecked=""> 
+单选按钮组
+不要使用option元素的selected属性设置单选按钮组的初始选中状态，应当使用 select元素的defaultValue：
+
+//JSX
+<select defaultvalue="A">
+    <option value="A">China</option>
+    <option value="B">India</option>
+    <option value="C">Japan</option>
+</select>
+-->
